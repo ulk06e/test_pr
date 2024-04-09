@@ -63,10 +63,12 @@
 
 <div class="top-container">
   <div class="element" style=" width: 45vw; height: 45vh;">
-    <form method="POST" enctype="multipart/form-data">
-      <input type="file" id="video_input" style="display: none;">
+    <form method="POST" enctype="multipart/form-data" id ="myForm">
+      <input type="file" id="video_input" name="video_input" style="display: none;">
   
       <label for="video_input" class="custom-file-upload">Choose File</label>
+      <input type="submit"  class="custom-file-upload">
+
     </form>
   </div>
   <div class="element" style=" width: 45vw; height: 45vh;">
@@ -82,7 +84,3 @@
 
 </body>
 </html>
-
-
-
-
