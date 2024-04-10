@@ -6,6 +6,8 @@ from gradio_client import Client
 
 
 app = Flask(__name__)
+ 
+ 
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -13,7 +15,7 @@ def upload_file():
         file = request.files['video_input']
         if file:
             # Сохраняем файл во временную директорию
-            file_path = os.path.join('temp', file.filename)
+            file_path = os.path.join('static', file.filename)
             file.save(file_path)
             
             cap = cv2.VideoCapture(file_path)
@@ -25,18 +27,17 @@ def upload_file():
             
             ret, frame = cap.read()
             if ret:
-                cv2.imwrite("temp/frame.jpg", frame)
+                cv2.imwrite("static/frame.jpg", frame)
             
             cap.release()
             
-            
             client = Client("https://tonyassi-image-story-teller.hf.space/--replicas/liw84/")
-            result = client.predict('temp/frame.jpg', api_name="/predict")
+            result = client.predict('static/frame.jpg', api_name="/predict")
             
             os.remove(file_path)
 
-            return render_template('index.html', result=result)
-    return render_template('index.html', result="Paste a video first...", img_place="../temp/frame.jpg")
+            return render_template('index.html', result=result,  img_place="../static/frame.jpg")
+    return render_template('index.html', result="Paste a video first...")
 
 if __name__ == '__main__':
     app.run(debug=True)
