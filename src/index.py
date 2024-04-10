@@ -33,8 +33,6 @@ def upload_file():
             
             client = Client("https://tonyassi-image-story-teller.hf.space/--replicas/liw84/")
             result = client.predict('static/frame.jpg', api_name="/predict")
-            
-            os.remove(file_path)
 
             return render_template('index.html', result=result,  img_place="../static/frame.jpg")
     return render_template('index.html', result="Paste a video first...")
